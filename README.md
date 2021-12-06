@@ -1,6 +1,6 @@
 # PEDPF <img src="https://icai.ai/wp-content/uploads/2020/01/AIRLabAmsterdam-10-6-gecomprimeerd-transparant.png" width="300" alt="Airlab Amsterdam" align="right"> #
 
-_Parameter Efficient Deep Probabilistic Forecasting_ (PEDPF) is a repository containing several deep learning based probabilistic forecasting methods as part of the 
+_Parameter Efficient Deep Probabilistic Forecasting_ (PEDPF) is a repository containing code to run experiments for several deep learning based probabilistic forecasting methods. For more details, see [our paper]().
 
 ### Reference ###
 [Olivier Sprangers](mailto:o.r.sprangers@uva.nl), Sebastian Schelter, Maarten de Rijke. [Parameter Efficient Deep Probabilistic Forecasting](). Accepted as journal paper to [International Journal of Forecasting](https://www.journals.elsevier.com/international-journal-of-forecasting).
