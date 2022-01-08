@@ -133,7 +133,6 @@ dmypy.json
 *.xls
 *.xlsx
 notes/
-*.csv
 *.model
 *.h5
 /tests
