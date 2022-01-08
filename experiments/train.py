@@ -20,8 +20,8 @@
 import torch
 import torch.optim as optim
 import numpy as np
-from joblib import Parallel, delayed
-from lib.utils import fix_seed, instantiate_model, count_parameters, read_table, get_emb
+import os
+from lib.utils import fix_seed, instantiate_model, read_table, get_emb
 from lib.train import loop
 from data.datasets import timeseries_dataset
 import pandas as pd
@@ -34,8 +34,8 @@ dim_inputseqlens = [168, 168, 90, 90, 90]
 dim_outputseqlens = [24, 24, 28, 30, 28]
 dim_maxseqlens = [500, 500, 150, 150, 119]
 #%% Initiate experiment
-dataset_id = 4
-cuda = 2
+dataset_id = 1
+cuda = 0
 seed = 0
 fix_seed(seed)
 num_samples_train = 1500000 if datasets[dataset_id] == 'kaggle_m5' else 500000
@@ -80,6 +80,7 @@ while table[table['in_progress'] == -1].isnull()['score'].sum() > 0:
     params = eval(table.loc[idx, 'params_train'])
     # Training loop
     filename = f"{experiment_dir}/{algorithm}/{algorithm}_seed={seed}_hidden={d_hidden}_lr={learning_rate}_bs={batch_size}"
+    if not os.path.isdir(f"{experiment_dir}/{algorithm}"): os.makedirs(f"{experiment_dir}/{algorithm}")
     fix_seed(seed)
     n_batch_train = (len(id_samples_train) + batch_size - 1) // batch_size 
     n_batch_validate = (len(id_samples_validate) + batch_size - 1) // batch_size

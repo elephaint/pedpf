@@ -23,6 +23,15 @@ import pandas as pd
 dim_inputseqlen = 90
 dim_outputseqlen = 30
 dim_maxseqlen = 150
+#%%
+import py7zr
+# datasets = ['train', 'holiday_events','items', 'oil', 'transactions']
+datasets = ['holidays_events']
+dataset = datasets[0]
+with py7zr.SevenZipFile(f'data/kaggle_favorita/{dataset}.csv.7z', mode='r') as z:
+    z.extractall('data/kaggle_favorita/')
+
+
 #%% Create subset
 df_train = pd.read_csv('data/kaggle_favorita/train_adj.csv', parse_dates=['date'], index_col=[0], dtype={'store_nbr':'int32','item_nbr_new':'int32','unit_sales':'float32','onpromotion':'int8'})
 # Subset

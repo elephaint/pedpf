@@ -18,6 +18,30 @@
 import pandas as pd
 import numpy as np
 import datetime
+#%% Remove some unwanted stuff
+with open('data/uci_traffic/PEMS_train', 'r') as infile, \
+     open('data/uci_traffic/PEMS_train_adj', 'w') as outfile:
+    data = infile.read()
+    data = data.replace("[", "")
+    data = data.replace("]", "")
+    data = data.replace(";", " ")
+    outfile.write(data)
+    
+with open('data/uci_traffic/PEMS_test', 'r') as infile, \
+     open('data/uci_traffic/PEMS_test_adj', 'w') as outfile:
+    data = infile.read()
+    data = data.replace("[", "")
+    data = data.replace("]", "")
+    data = data.replace(";", " ")
+    outfile.write(data)
+    
+with open('data/uci_traffic/randperm', 'r') as infile, \
+     open('data/uci_traffic/randperm_adj', 'w') as outfile:
+    data = infile.read()
+    data = data.replace("[", "")
+    data = data.replace("]", "")
+    outfile.write(data)
+
 #%% Load original data, concatenate, so as to construct correct time order
 df1 = np.loadtxt('data/uci_traffic/PEMS_train_adj', delimiter=' ')
 df2 = np.loadtxt('data/uci_traffic/PEMS_test_adj', delimiter=' ')
@@ -38,10 +62,11 @@ data = data.transpose(0, 2, 1)
 #%% Create pd dataframe. We use hourly data up to 1-10-2008
 index = pd.date_range('2008-01-01', periods=6576, freq='h')
 index = pd.MultiIndex.from_arrays([index.date, index.time], names=['date','time'])
-dates = index.get_level_values(0).unique()
+dates = pd.to_datetime(index.get_level_values(0).unique(), format='%Y-%m-%d').date
 index_dates = pd.read_csv('data/uci_traffic/index_dates.csv', delimiter=';', index_col=[0])
 index_dates = pd.to_datetime(index_dates['Date'], format='%d/%m/%Y')
 index_dates = pd.Index(index_dates)[:267]
+index_dates = index_dates.date
 columns = ['carlane_'+str(i+1) for i in range(963)]
 df_new = pd.DataFrame(index=index, columns=columns)
 df_new['missing'] = 0
